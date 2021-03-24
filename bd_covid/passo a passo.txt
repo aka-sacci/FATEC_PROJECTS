@@ -1,0 +1,42 @@
+Passos para importação de dados (MariaDB + HeidiSQL):
+
+Parte 1 - Normalização de caracteres:
+
+1 - Abrir o CSV disponibilizado pelo governo no bloco de notas
+2 - Salvar como CSV, porém mudando a codificação de UTF-8 Para ANSI
+
+
+Parte 2 - Resolvendo o erro "O arquivo não foi totalmente carregado"
+
+1 - Criar um novo arquivo no Excel em branco
+2 - Na aba "Dados", criar em "Obter dados de Text/CSV"
+3 - Selecionar o arquivo que foi criado no passo anterior
+4 - Clicar em "Transformar dados". Isso abrirá o Power Query do Excel.
+5 - Na aba "Adicionar coluna", clicar em "Coluna Índice" e "De 1"
+
+nota - Tudo isso é para realizar a divisão dos dados. Recomendo Mover a coluna "Índice" para a primeira coluna
+
+6 - Na aba esquerda "Consulta", criar 3 cópias do arquivo
+7 - Dividir em grupos de 500000 linhas (pode ser mais, mas 500000 foi a divisão que eu achei melhor) cada aba de consulta. Para realizar a divisão, usar os filtros da coluna "Índice".
+
+Em caso de dúvidas em como realizar a divisão, basta acessar o link: https://www.youtube.com/watch?v=s3u-9jGE8Hg
+Nesse vídeo fica bem explicado como foi feita a divisão
+
+8 - Clicar em Arquivo > Fechar e carregar;
+9 - Esperar os arquivos serem carregados;
+10 - (!!!!!!IMPORTANTE) Salvar o arquivo como .xlsx e não como .csv.
+Depois de seguir esses passos, todos os dados estarão salvos naquela planílha, em grupos de 500000 cada e sem nenhum erro de UTF
+
+
+Parte 3 - Reunião de dados e importação
+
+- A reunião de dados deve ser feita de acordo com qual tabela você quer preencher, porém a ideia de todas é a mesma: A partir do arquivo criado anteriormente (Que, na minha divisão de 500k, tem 3 planilhas) retirar os dados que você não quer, filtar os dados que você irá usar, copiar tudo e jogar em outro arquivo, organizando pela sequencia de campos na sua tabela. Esse será o .csv usado para importar os dados. Por exemplo, caso você queira preencher a tabela "Cidades", você vai ter que usar um pouco de Excel básico para filtrar os dados e tirar as repetições de cidades, assim, cada cidade corresponderá a apenas uma linha da planilha e você poderá ultilizar apenas um arquivo .csv para importar os dados. Porém, para as tabelas de mortes e casos registrados, deverá ser gerado um arquivo Excel para cada planilha de trabalho no arquivo anterior (no meu caso, 3 .csv para mortes e mais 3 para casos).
+
+1 - Faça uma cópia do arquivo gerado anteriormente.
+2 - Filtre os dados que você quer usar
+3 - Cole os dados filtrados em uma nova planilha.
+4 - Salve o arquivo como .csv
+5 - Importe os dados no HeidiSQL
+
+
+
